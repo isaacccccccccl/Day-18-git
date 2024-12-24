@@ -43,3 +43,9 @@ function onBallFourthClick() {
     elBall.innerText = gSize
     } 
 }
+
+function onBallFifthClick() {
+    const elBody = document.querySelector('body')
+    elBody.style.backgroundColor = getRandomColor()
+}
+
