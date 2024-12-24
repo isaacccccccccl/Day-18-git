@@ -2,11 +2,12 @@
 
 var gSize = 100
 
-function onBallClick(onBtn) {
+function onBallClick(onBtn, maxDiameter) {
 
     var elBall = onBtn
-    if (gSize < 400) gSize = +elBall.innerText + getRandomInt(20, 61)
-    else gSize = 100
+    gSize = +elBall.innerText + getRandomInt(20, 61)
+    if (gSize > maxDiameter) gSize = 100
+    
 
     elBall.style.backgroundColor = getRandomColor()
     elBall.style.width = gSize + 'px'
