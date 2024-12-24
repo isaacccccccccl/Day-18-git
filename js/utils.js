@@ -15,3 +15,25 @@ function getRandomColor() {
     }
     return color
 }
+
+function startTimer(){
+    gStartTime = Date.now()
+    clearInterval(gTimerInterval)
+    gTimerInterval = setInterval(timerTick, 67)
+}
+
+function stopTimer(){
+    gStartTime = 0
+    clearInterval(gTimerInterval)
+    document.querySelector('.timer').innerHTML = '00 : 00'
+}
+
+function timerTick() {
+    var timePassed = Date.now() - gStartTime
+    // var millisecs = String(timePassed % 1000).padStart(3, '0')
+    var secs = parseInt(timePassed / 1000)
+    gSecs = secs
+    
+    var strToDisplay = `${secs}`
+    document.querySelector('.timer').innerHTML = '' + strToDisplay
+}

@@ -8,11 +8,13 @@
 </head>
 <body>
     <h1>The Ball Game</h1>
+    <div class="timer">0:000</div>
     <div class="ball ball1" onclick="onBallClick(this, 500)">100</div>
     <div class="ball ball2" onclick="onBallClick(this, 300)">100</div>
     <div class="ball3" onclick="onBallThreeClick()">100</div>
     <div class="ball4" onclick="onBallFourthClick()">100</div>
     <div class="ball5" onclick="onBallFifthClick()">100</div>
+    <div class="ball6" onmouseover="onBallHover()" onmouseleave="leaveBall()">100</div>
 
     <script src="js/main.js"></script>
     <script src="js/utils.js"></script>

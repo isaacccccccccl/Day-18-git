@@ -1,6 +1,14 @@
 'use strict'
 
 var gSize = 100
+var gFirstInterval
+var gSecInterval
+var gThierdInterval
+var gFourthInterval
+
+var gTimerInterval
+var gStartTime
+var gSecs
 
 function onBallClick(onBtn, maxDiameter) {
 
@@ -20,7 +28,7 @@ function onBallThreeClick() {
     var elBalls = document.querySelectorAll('.ball')
 
     for (var i = 0; i < elBalls.length; i++) {
-        var elBall = document.querySelector(`.ball${i+1}`)
+        var elBall = document.querySelector(`.ball${i + 1}`)
         onBallClick(elBall, 400)
     }
 
@@ -31,21 +39,50 @@ function onBallFourthClick() {
     var elBalls = document.querySelectorAll('.ball')
 
     for (var i = 0; i < elBalls.length; i++) {
-        var elBall = document.querySelector(`.ball${i+1}`)
+        var elBall = document.querySelector(`.ball${i + 1}`)
 
         gSize = +elBall.innerText - getRandomInt(20, 61)
-    if (gSize < 100) gSize = 100
+        if (gSize < 100) gSize = 100
 
 
-    elBall.style.backgroundColor = getRandomColor()
-    elBall.style.width = gSize + 'px'
-    elBall.style.height = gSize + 'px'
-    elBall.innerText = gSize
-    } 
+        elBall.style.backgroundColor = getRandomColor()
+        elBall.style.width = gSize + 'px'
+        elBall.style.height = gSize + 'px'
+        elBall.innerText = gSize
+    }
 }
 
 function onBallFifthClick() {
     const elBody = document.querySelector('body')
     elBody.style.backgroundColor = getRandomColor()
+}
+
+function onBallHover() {
+    startTimer()
+    
+    var count = 0
+    if(count > 10) {
+        stopTimer()
+    clearInterval(gFirstInterval)
+    clearInterval(gSecInterval)
+    clearInterval(gThierdInterval)
+    clearInterval(gFourthInterval)
+    }
+
+    if (count < 10) {
+        gFirstInterval = setInterval(onBallClick, 2000, document.querySelector(`.ball${1}`), 500)
+        gSecInterval = setInterval(onBallClick, 2000, document.querySelector(`.ball${2}`), 300)
+        gThierdInterval = setInterval(onBallThreeClick, 2000)
+        gFourthInterval = setInterval(onBallFourthClick, 2000)
+        count++
+    }
+}
+
+function leaveBall() {
+    stopTimer()
+    clearInterval(gFirstInterval)
+    clearInterval(gSecInterval)
+    clearInterval(gThierdInterval)
+    clearInterval(gFourthInterval)
 }
 
