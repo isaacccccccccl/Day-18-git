@@ -8,7 +8,16 @@
 </head>
 <body>
     <h1>The Ball Game</h1>
-    <div class="timer">0:000</div>
+    <table>
+        <tbody>
+            <tr>
+                <td></td>
+                <td class="timer"><span>timer: </span>0<span>s</span></td>
+                <td><button onclick="onUndo()">undo</button></td>
+                <td><button onclick="onRedo()">redo</button></td>
+            </tr>
+        </tbody>
+    </table>
     <div class="ball ball1" onclick="onBallClick(this, 500)">100</div>
     <div class="ball ball2" onclick="onBallClick(this, 300)">100</div>
     <div class="ball3" onclick="onBallThreeClick()">100</div>
