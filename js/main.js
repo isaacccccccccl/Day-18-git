@@ -10,17 +10,22 @@ var gTimerInterval
 var gStartTime
 var gSecs
 
-function onBallClick(onBtn, maxDiameter) {
+const gUndo = []
+const gRedo = []
 
-    var elBall = onBtn
+function onBallClick(maxDiameter, i) {
+
+    var elBall = document.querySelector(`.ball${i}`)
     gSize = +elBall.innerText + getRandomInt(20, 61)
     if (gSize > maxDiameter) gSize = 100
 
 
-    elBall.style.backgroundColor = getRandomColor()
+    const color = getRandomColor()
+    elBall.style.backgroundColor = color
     elBall.style.width = gSize + 'px'
     elBall.style.height = gSize + 'px'
     elBall.innerText = gSize
+    gUndo.push({ gSize, color, i })
 }
 
 function onBallThreeClick() {
@@ -29,7 +34,7 @@ function onBallThreeClick() {
 
     for (var i = 0; i < elBalls.length; i++) {
         var elBall = document.querySelector(`.ball${i + 1}`)
-        onBallClick(elBall, 400)
+        onBallClick(400, i + 1)
     }
 
 }
@@ -59,14 +64,14 @@ function onBallFifthClick() {
 
 function onBallHover() {
     startTimer()
-    
+
     var count = 0
-    if(count > 10) {
+    if (count > 10) {
         stopTimer()
-    clearInterval(gFirstInterval)
-    clearInterval(gSecInterval)
-    clearInterval(gThierdInterval)
-    clearInterval(gFourthInterval)
+        clearInterval(gFirstInterval)
+        clearInterval(gSecInterval)
+        clearInterval(gThierdInterval)
+        clearInterval(gFourthInterval)
     }
 
     if (count < 10) {
@@ -86,3 +91,30 @@ function leaveBall() {
     clearInterval(gFourthInterval)
 }
 
+function onUndo() {
+    if (gUndo.length > 0) {
+        setBall('undo')
+    }
+}
+
+function onRedo() {
+    if (gRedo.length > 0) {
+        setBall('redo')
+    }
+}
+
+function setBall(action) {
+    if (action === 'undo') {
+        var lastPlay = gUndo.pop()
+        gRedo.push(lastPlay)
+    } else if (action === 'redo') {
+        lastPlay = gRedo.pop()
+    }
+    console.log(lastPlay)
+    var elBall = document.querySelector(`.ball${lastPlay.i}`)
+    console.log(lastPlay.color)
+    elBall.innerText = lastPlay.gSize
+    elBall.style.width = lastPlay.gSize + 'px'
+    elBall.style.height = lastPlay.gSize + 'px'
+    elBall.style.backgroundColor = lastPlay.color
+}
